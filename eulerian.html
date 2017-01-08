@@ -1,0 +1,72 @@
+<html>
+
+<head>
+
+<title>Pim van 't Hof</title>
+<link rel="stylesheet" type="text/css" href="style.css"> 
+
+</head>
+
+<body>
+
+<div id="menu">
+<a href="index.html">Home</a> |
+<a href="about.html">About</a> |
+<a href="research.html">Research</a> |
+<a href="publications.html"><font color="red">Publications</font></a> |
+<a href="trips.html">Trips</a> |
+<a href="personal.html">Personal</a> |
+<a href="contact.html">Contact</a>
+</div>
+
+<div id="main">
+
+<h2>Editing to Eulerian graphs</h2>
+
+<i>Konrad K. Dabrovski, Petr A. Golovach, Pim van 't Hof and Dani&#235l Paulusma</i>
+
+<br>
+<br> 
+
+<p>
+<i>Journal of Computer and System Sciences</i>, to appear.<br>
+[<a href="http://dx.doi.org/10.1016/j.jcss.2015.10.003" target="_blank"><u>DOI</u></a>][<a href="http://arxiv.org/abs/1410.6863" target="_blank"><u>Preprint</u></a>]
+</p>
+
+<p>
+A preliminary version of this paper will appear in the proceedings of <a href="http://www.fsttcs.org" target="_blank">FSTTCS 2014</a>, the 34th IARCS Annual Conference on Foundations of Software Technology and Theoretical Computer Science (held on December 15-17, 2014 in New Delhi, India), <i>Leibniz International Proceedings in Informatics (LIPIcs)</i>, vol. 29, pp. 97-108, 2014.<br>
+[<a href="http://dx.doi.org/10.4230/LIPIcs.FSTTCS.2014.97" target="_blank"><u>DOI</u></a>]
+</p>
+
+<br>
+
+<h3>Abstract:</h3>
+
+<p>
+We investigate the problem of modifying a graph into a connected graph in which the degree of each vertex satisfies a prescribed parity constraint. Let ea, ed and vd denote the operations edge addition, edge deletion and vertex
+deletion respectively. For any <i>S</i> &#8838; {ea,ed,vd}, we define
+<span style="font-variant: small-caps;">Connected Degree Parity Editing</span>(<i>S</i>) (CDPE(<i>S</i>)) to be the problem that takes as input a graph <i>G</i>, an integer <i>k</i> and a function &#948; : <i>V</i>(<i>G</i>) &#8594; {0,1}, and asks whether <i>G</i> can be modified into a connected
+graph <i>H</i> with <i>d<sub>H</sub></i>(<i>v</i>) &#8801; &#948;(<i>v</i>) (mod 2) for each <i>v</i> &#8712; <i>V</i>(<i>H</i>), using at most <i>k</i> operations from <i>S</i>. We prove that
+<ol>
+ <li>if <i>S</i>={ea} or <i>S</i>={ea,ed}, then CDPE(<i>S</i>) can be solved in polynomial time;
+ </li>
+ <li>if {vd} &#8838; <i>S</i> &#8838; {ea,ed,vd}, then CDPE(<i>S</i>) is NP-complete and W-hard when parameterized by <i>k</i>, even if &#948; &#8801; 0.
+ </li>
+</ol>
+
+Together with known results by Cai and Yang and by Cygan, Marx, Pilipczuk,
+Pilipczuk and Schlotter, our results completely classify the classical and
+parameterized complexity of the CDPE(<i>S</i>) problem for all <i>S</i> &#8838; {ea,ed,vd}. We obtain the same classification for a natural variant of the CDPE(<i>S</i>) problem on directed graphs, where the target is a weakly connected digraph in which the difference between the in- and out-degree of every vertex equals a prescribed value.
+</p>
+
+<p>
+As an important implication of our results, we obtain polynomial-time
+algorithms for <span style="font-variant: small-caps;">Eulerian Editing</span> problem and its directed variant. To the best of our knowledge, the only other natural non-trivial graph class &#8460; for which
+the &#8460;-<span style="font-variant: small-caps;">Editing</span> problem is known to be polynomial-time solvable is the class of split graphs.
+</p>
+
+</div>
+
+</body>
+
+</html>

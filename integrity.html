@@ -1,0 +1,77 @@
+<html>
+
+<head>
+
+<title>Pim van 't Hof</title>
+<link rel="stylesheet" type="text/css" href="style.css"> 
+
+</head>
+
+<body>
+
+<div id="menu">
+<a href="index.html">Home</a> |
+<a href="about.html">About</a> |
+<a href="research.html">Research</a> |
+<a href="publications.html"><font color="red">Publications</font></a> |
+<a href="trips.html">Trips</a> |
+<a href="personal.html">Personal</a> |
+<a href="contact.html">Contact</a>
+</div>
+
+<div id="main">
+
+<h2>On the computational complexity of vertex integrity and component order connectivity</h2>
+
+<i>P&#229;l Gr&#248;n&#229;s Drange, Markus Sortland Dregi and Pim van 't Hof</i>
+
+<br>
+<br> 
+
+<p>
+<i>Algorithmica</i>, vol. 76, no. 4, pp. 1181-1202, 2016.<br>
+[<a href="http://dx.doi.org/10.1007/s00453-016-0127-x" target="_blank"><u>DOI</u></a>][<a href="http://arxiv.org/abs/1403.6331" target="_blank"><u>Preprint</u></a>]
+</p>
+
+<p>
+A preliminary version of this paper appeared in the proceedings of <a href=" http://tcs.postech.ac.kr/isaac2014/" target="_blank">ISAAC 2014</a>, the 25th International Symposium on Algorithms and Computation (held on December 15-17, 2014 in Jeonju, Korea), <i>Lecture Notes in Computer Science</i>, vol. 8889, pp. 285-297, 2014.<br>
+[<a href="http://dx.doi.org/10.1007/978-3-319-13075-0_23" target="_blank"><u>DOI</u></a>]
+</p>
+
+<br>
+
+<h3>Abstract:</h3>
+
+<p>
+The <span style="font-variant: small-caps;">Weighted Vertex Integrity</span> (wVI) problem takes as input an <i>n</i>-vertex graph <i>G</i>, a weight function <i>w</i> : <i>V</i>(<i>G</i>) &#8594; &#8469;</i>, and an integer <i>p</i>. The task is to decide if there exists a set <i>X</i> &#8838; <i>V(G)</i> such that the weight of <i>X</i> plus the weight of a heaviest component of <i>G</i> - <i>X</i> is at most <i>p</i>. Among other results, we prove that: 
+<ol>
+ <li> wVI is NP-complete on co-comparability graphs, even if each vertex has weight 1;
+ </li>
+ <li> wVI can be solved in <i>O</i>(<i>p</i><sup><i>p</i>+1</sup><i>n</i>) time;
+ </li>
+ <li> wVI admits a kernel with at most <i>p</i><sup>3</sup> vertices.
+ </li>
+</ol>
+Result 1 refutes a conjecture by Ray and Deogun (J. Combin. Math. Combin. Comput. 16: 65-73, 1994) and answers an open question by Ray et al. (Ars Comb. 79: 77-95, 2006). It also complements a result by Kratsch et al. (Discr. Appl. Math. 77: 259-270, 1997), stating that the unweighted version of the problem can be solved in polynomial time on co-comparability graphs of bounded dimension, provided that an intersection model of the input graph is given as part of the input. 
+</p>
+
+<p>
+An instance of the <span style="font-variant: small-caps;">Weighted Component Order Connectivity</span> (wCOC) problem consists of an <i>n</i>-vertex graph <i>G</i>, a weight function <i>w</i> : <i>V</i>(<i>G</i>) &#8594; &#8469;</i>, and two integers <i>k</i> and &#8467;, and the task is to decide if there exists a set <i>X</i> &#8838; <i>V(G)</i> such that the weight of <i>X</i> is at most <i>k</i> and the weight of a heaviest component of <i>G</i> - <i>X</i> is at most &#8467;. In some sense, the wCOC problem can be seen as a refined version of the wVI problem. We obtain several classical and parameterized complexity results on the wCOC problem, uncovering interesting similarities and differences between wCOC and wVI. We prove, among other results, that: 
+<ol>
+ <li> wCOC can be solved in <i>O</i>(min{<i>k</i>,&#8467;} &#183; <i>n</i><sup>3</sup>) time on interval graphs, while the unweighted version can be solved in <i>O</i>(<i>n</i><sup>2</sup>) time on this graph class;
+ </li>
+ <li> wCOC is W[1]-hard on split graphs when parameterized by <i>k</i> or by &#8467;;
+ </li>
+ <li> wCOC can be solved in 2<sup><i>O</i>(<i>k</i> log &#8467;)</sup> &#183; <i>n</i> time;
+ </li>
+ <li> wCOC admits a kernel with at most <i>k&#8467;</i>(<i>k</i> + &#8467;) + <i>k</i> vertices.
+ </li>
+</ol>
+We also show that result 6 is essentially tight by proving that wCOC cannot be solved in 2<sup><i>o</i>(<i>k</i> log &#8467;)</sup> &#183; <i>n</i><sup><i>O</i>(1)</sup> time, even when restricted to split graphs, unless the Exponential Time Hypothesis fails.
+</p>
+
+</div>
+
+</body>
+
+</html>
