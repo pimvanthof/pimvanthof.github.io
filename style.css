@@ -1,0 +1,126 @@
+body { 
+  background-color: #ffffff; 
+  color: black;
+  font-size: 11pt;
+  font-style: normal;
+  font-family: Georgia,sans-serif;
+}
+
+#menu { 
+        background-color: lightgray;
+        color: #333333;
+        position: relative;
+        left: 50%;
+        border: 1px solid black;
+        width: 600px;
+        margin: 0 0 10px -300px;
+        padding: 5px 10px 5px 10px;
+}
+
+#menu a { 
+	      color: black;
+          padding : 0 3px; 
+          background-color: lightgray;
+          text-decoration: none;
+          font-weight:bold;
+}
+	
+#menu a:visited { 
+	          color: black; 
+                  background-color: lightgray;
+                  text-decoration: none;
+}
+
+#menu a:hover { 
+                color: darkgray;
+                background-color: lightgray;
+                padding : 0 3px; 
+                text-decoration: none;
+}
+
+#main {
+        background-color: #FFFFFF;
+        color: #333333;
+        position: relative;
+        left: 50%;
+        border: 1px solid black;
+        width: 600px;
+        margin: 0 0 0 -300px;
+        padding: 10px;
+}
+
+#main a { 
+	      color: navy;
+          background-color: #FFFFFF;
+          text-decoration: none;
+}
+	
+#main a:visited { 
+	              color: navy; 
+                  background-color: #FFFFFF;
+                  text-decoration: none;
+}
+
+#main a:hover { 
+	            color: navy;
+                background-color: lightgray;
+                text-decoration: none;
+}
+
+strong {
+<!--  text-align: center;-->
+  background-color: white;
+  color: navy;
+  font-weight: bold;
+  width: 150px;
+  padding: 0px;
+  margin: 0px;
+}
+
+small {
+<!--  text-align: center;-->
+  background-color: white;
+  color: #333333;
+  font-size: 8pt;
+  width: 150px;
+  padding: 0px;
+  margin: 0px;
+}
+
+
+.studyitemL0 h5 {
+  text-align: center;
+  background-color: #E6E6E6;
+  color: black;
+  font-weight: bold;
+  font-size: 11pt;
+  width: 180px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.studyitemL0 {
+  font-size: 11pt;
+  padding: 0px;
+  margin: 0px;
+  width: 180px;
+  border: none;
+}
+
+.studyitemL {
+  font-size: 11pt;
+  padding: 10px 0px 0px 0px;
+  margin: 0px;
+  width: 180px;
+  border: none;
+  text-align: center;
+  vertical-align: top;
+}
+
+.studyitemR {
+  font-size: 11pt;
+  color: #333333;
+  border: none; 
+  padding: 10px 0px 0px 10px;
+  margin: 0px;
+}
