@@ -1,8 +1,143 @@
 <html>
   <head>
+    <script>
+      if(typeof(String.prototype.trim) === "undefined")
+      {
+          String.prototype.trim = function() 
+          {
+              return String(this).replace(/^\s+|\s+$/g, '');
+          };
+      }
+
+      var nodes = [
+          {"x" : 150,  // implicitly d == 0
+           "y" : 150,
+           "q" : 0,
+          },
+          {"x" : 120,  // node 1
+           "y" : 75,
+           "q" : 10,
+          },
+          {"x" : 20,
+           "y" : 300,
+           "q" : 10,
+          },
+          {"x" : 200,
+           "y" : 75,
+           "q" : 10,
+          },
+          {"x" : 30,
+           "y" : 70,
+           "q" : 10,
+          },
+          {"x" : 200,
+           "y" : 135,
+           "q" : 10,
+          },
+          {"x" : 90,
+           "y" : 170,
+           "q" : 10,
+          },
+      ];
+
+      function get_path(pstr) {
+          var path = pstr.split(',');
+          for (var i = 0; i < path.length; i++) {
+              path[i] = path[i].trim()
+              console.log(i);
+              console.log(path);
+              if (path[i] === "d")
+                  path[i] = 0;
+              else if (!isNaN(path[i])) {
+                  path[i] = parseInt(path[i])
+                  if (path[i] <= 0)
+                      return [];
+                  if (path[i] >= nodes.length)
+                      return [];
+              }
+              else
+                  return [];
+          }
+          return path;
+      }
+
+      function draw_node(ctx, x, y, r, name, q) {
+          console.log(x, y, r)
+          ctx.beginPath();
+          ctx.arc(x, y, r, 0, 2 * Math.PI);
+          ctx.stroke();
+          if (name === 0)
+              name = "d";
+          ctx.font = "18px Helvetica";
+          ctx.strokeText(name, x, y); 
+          ctx.font = "12px Helvetica";
+          ctx.strokeText(q, x, y+10); 
+      }
+
+      function draw(ctx) {
+          var radius = 20;
+          nodes.forEach((node, i) =>
+                        draw_node(ctx,
+                                  node["x"],
+                                  node["y"],
+                                  20,
+                                  i,
+                                  node["q"]));
+
+      }
+
+      function draw_path(segment, ctx) {
+          ctx.moveTo(nodes[0]["x"], nodes[0]["y"]);
+          for (var i = 0; i < segment.length; i++) {
+              var x = nodes[segment[i]]["x"];
+              var y = nodes[segment[i]]["y"];
+              ctx.lineTo(x, y);
+          }
+          ctx.lineTo(nodes[0]["x"], nodes[0]["y"]);
+          ctx.stroke(); 
+      }
+
+      function updatePath(path, ctx) {
+          if (path.length < 2)
+              return;
+          var segment = [];
+          for (var i = 0; i < path.length; i++) {
+              if (path[i] != 0)
+                  segment.push(path[i]);
+              else {
+                  draw_path(segment, ctx);
+                  segment = [];
+              }
+          }
+      }
+
+      function scoreCustomers(path) {
+          var score = nodes.length;
+          for (var i = 0; i < nodes.length; i++) {
+              if (path.find(i) >= 0)
+                  score -= 1;
+          }
+          return score;
+      }
+
+      function updateCanvas() {
+          var canvas = document.getElementById("canvas");
+          var ctx = canvas.getContext("2d");
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          draw(ctx);
+          var content = document.getElementById("pathinput").value;
+          var the_path = get_path(content);
+          updatePath(the_path, ctx);
+          var path = the_path.join(" → ");
+          document.getElementById("pathoutput").innerHTML = "Your route: " + path;
+          console.log(get_path(content));
+      }
+    </script>
   </head>
   <body>
-    <p>Your route:</p>
-    <input />
+    <canvas id='canvas' width="350" height="400">
+    </canvas>
+    <p id="pathoutput">Your route:</p>
+    <input id="pathinput" type="text" onkeypress="updateCanvas()">
   </body>
 </html>
