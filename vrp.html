@@ -62,6 +62,8 @@
 
       function getPath(pstr) {
           pstr = pstr.trim();
+          if (pstr == "")
+              return [];
           if (pstr[pstr.length-1] === ',')
               pstr = pstr.substr(0, pstr.length-1);
           var path = pstr.trim().split(',');
@@ -92,12 +94,14 @@
           ctx.stroke();
           if (name === 0)
               name = "d";
-          if (name > 10)
+          if (name >= 10)
               x -= 10;
+          else
+              x -= 3;
           ctx.font = "18px Helvetica";
           ctx.strokeText(name, x, y);
           ctx.font = "12px Helvetica";
-          ctx.strokeText(q, x, y+10);
+          ctx.strokeText(q, x, y+11);
       }
 
       function draw(ctx) {
