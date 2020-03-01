@@ -20,54 +20,74 @@
               return String(this).replace(/^\s+|\s+$/g, '');
           };
       }
-      var XSCALE = 60;
-      var YSCALE = 40;
+      var XSCALE = 12;
+      var YSCALE = 8;
+
+      // to flip horizontally, this height needs to be the same as canvas height
+      var CANVAS_HEIGHT = 600;
       var nodes = [
-{"x": 7*XSCALE, "y": 7*YSCALE, "q": 0}, // D
-{"x": 8*XSCALE, "y": 10*YSCALE, "q": 10}, // 1
-{"x": 7*XSCALE, "y": 3*YSCALE, "q": 7}, // 2
-{"x": 11*XSCALE, "y": 9*YSCALE, "q": 13}, // 3
-{"x": 11*XSCALE, "y": 4*YSCALE, "q": 19}, // 4
-{"x": 3*XSCALE, "y": 6*YSCALE, "q": 26}, // 5
-{"x": 5*XSCALE, "y": 6*YSCALE, "q": 3}, // 6
-{"x": 4*XSCALE, "y": 10*YSCALE, "q": 5}, // 7
-{"x": 2*XSCALE, "y": 9*YSCALE, "q": 9}, // 8
-{"x": 11*XSCALE, "y": 12*YSCALE, "q": 16}, // 9
-{"x": 6*XSCALE, "y": 12*YSCALE, "q": 16}, // 10
-{"x": 4*XSCALE, "y": 13*YSCALE, "q": 12}, // 11
-{"x": 10*XSCALE, "y": 7*YSCALE, "q": 19}, // 12
-{"x": 6*XSCALE, "y": 5*YSCALE, "q": 23}, // 13
-{"x": 3*XSCALE, "y": 2*YSCALE, "q": 20}, // 14
-{"x": 6*XSCALE, "y": 1*YSCALE, "q": 8}, // 15
-{"x": 2*XSCALE, "y": 4*YSCALE, "q": 19}, // 16
-{"x": 1*XSCALE, "y": 6*YSCALE, "q": 2}, // 17
-{"x": 4*XSCALE, "y": 8*YSCALE, "q": 12}, // 18
-{"x": 3*XSCALE, "y": 12*YSCALE, "q": 17}, // 19
-{"x": 9*XSCALE, "y": 13*YSCALE, "q": 9}, // 20
-{"x": 9*XSCALE, "y": 4*YSCALE, "q": 11}, // 21
-{"x": 9*XSCALE, "y": 2*YSCALE, "q": 18}, // 22
-{"x": 11*XSCALE, "y": 1*YSCALE, "q": 29}, // 23
-{"x": 13*XSCALE, "y": 7*YSCALE, "q": 3}, // 24
-{"x": 13*XSCALE, "y": 4*YSCALE, "q": 6}, // 25
+{"x": 35*XSCALE, "y": CANVAS_HEIGHT - 35*YSCALE, "q":  0,}, // depot
+{"x": 41*XSCALE, "y": CANVAS_HEIGHT - 49*YSCALE, "q": 10,},
+{"x": 35*XSCALE, "y": CANVAS_HEIGHT - 17*YSCALE, "q":  7,},
+{"x": 55*XSCALE, "y": CANVAS_HEIGHT - 45*YSCALE, "q": 13,},
+{"x": 55*XSCALE, "y": CANVAS_HEIGHT - 20*YSCALE, "q": 19,},
+{"x": 15*XSCALE, "y": CANVAS_HEIGHT - 30*YSCALE, "q": 26,},
+{"x": 25*XSCALE, "y": CANVAS_HEIGHT - 30*YSCALE, "q":  3,},
+{"x": 20*XSCALE, "y": CANVAS_HEIGHT - 50*YSCALE, "q":  5,},
+{"x": 10*XSCALE, "y": CANVAS_HEIGHT - 43*YSCALE, "q":  9,},
+{"x": 55*XSCALE, "y": CANVAS_HEIGHT - 60*YSCALE, "q": 16,},
+{"x": 30*XSCALE, "y": CANVAS_HEIGHT - 60*YSCALE, "q": 16,},
+{"x": 20*XSCALE, "y": CANVAS_HEIGHT - 65*YSCALE, "q": 12,},
+{"x": 50*XSCALE, "y": CANVAS_HEIGHT - 35*YSCALE, "q": 19,},
+{"x": 30*XSCALE, "y": CANVAS_HEIGHT - 25*YSCALE, "q": 23,},
+{"x": 15*XSCALE, "y": CANVAS_HEIGHT - 10*YSCALE, "q": 20,},
+{"x": 30*XSCALE, "y": CANVAS_HEIGHT -  5*YSCALE, "q":  8,},
+{"x": 10*XSCALE, "y": CANVAS_HEIGHT - 20*YSCALE, "q": 19,},
+{"x": 5*XSCALE,  "y": CANVAS_HEIGHT - 30*YSCALE, "q":  2,},
+{"x": 20*XSCALE, "y": CANVAS_HEIGHT - 40*YSCALE, "q": 12,},
+{"x": 15*XSCALE, "y": CANVAS_HEIGHT - 60*YSCALE, "q": 17,},
+{"x": 45*XSCALE, "y": CANVAS_HEIGHT - 65*YSCALE, "q":  9,},
+{"x": 45*XSCALE, "y": CANVAS_HEIGHT - 20*YSCALE, "q": 11,},
+{"x": 45*XSCALE, "y": CANVAS_HEIGHT - 10*YSCALE, "q": 18,},
+{"x": 55*XSCALE, "y": CANVAS_HEIGHT -  5*YSCALE, "q": 29,},
+{"x": 65*XSCALE, "y": CANVAS_HEIGHT - 35*YSCALE, "q":  3,},
+{"x": 65*XSCALE, "y": CANVAS_HEIGHT - 20*YSCALE, "q":  6,},
       ];
 
       function dist(n1, n2) {
-          var x1 = n1["x"] / XSCALE * 5;
-          var x2 = n2["x"] / XSCALE * 5;
-          var y1 = n1["y"] / YSCALE * 5.5;
-          var y2 = n2["y"] / YSCALE * 5.5;
+          var x1 = n1["x"] / XSCALE;
+          var x2 = n2["x"] / XSCALE;
+          var y1 = n1["y"] / YSCALE;
+          var y2 = n2["y"] / YSCALE;
           return Math.floor(
               Math.sqrt(Math.pow(x1-x2, 2) +
                         Math.pow(y1-y2, 2)));
       }
 
+      /**
+       * Computes the length of a path, adds an implicit depot at start
+       * and end of tour.
+       */
       function pathLength(path) {
-          var d = 0
+          if (path.length == 0)
+              return 0;
+          var d = dist(nodes[0], nodes[path[0]]);
           for (var i = 1; i < path.length; i++)
               d += dist(nodes[path[i-1]], nodes[path[i]])
+          d += dist(nodes[path[path.length - 1]], nodes[0]);
           return d;
       }
 
+      /**
+       * Returns a path, which is an array of integers between 0 and
+       * nodes.length.
+       *
+       * The input is a comma-separated string of integers, with the
+       * possible exception of a "d", which is interpreted as 0.
+       *
+       * In case we cannot parse the string, [] is returned.
+       *
+       */
       function getPath(pstr) {
           pstr = pstr.trim();
           if (pstr == "")
@@ -94,6 +114,11 @@
           return path;
       }
 
+
+      /**
+       * Draws a node at given x, y, with radius r, name and quantity as
+       * given.
+       */
       function drawNode(ctx, x, y, r, name, q) {
           ctx.beginPath();
           ctx.arc(x, y, r, 0, 2 * Math.PI);
@@ -122,6 +147,9 @@
           ctx.fillStyle = "#ffffff";
       }
 
+      /**
+       * Draws every node in nodes using drawNode.
+       */
       function draw(ctx) {
           var radius = 20;
           nodes.forEach((node, i) =>
@@ -134,6 +162,12 @@
 
       }
 
+      /**
+       * Draws a segment in color specified by `idx` on canvas ctx.
+       *
+       * A segment is an array of ints, preferably starting and ending
+       * in 0 (the depot).
+       */
       function drawPath(segment, ctx, idx) {
           ctx.lineWidth = 2;
           ctx.strokeStyle = colors[idx % colors.length];
@@ -166,6 +200,10 @@
           }
       }
 
+      /**
+       * Compute number of vehicles/routes in the current path.
+       * A route is a segment starting and ending in 0.
+       */
       function pathVehicles(path) {
           var vehicles = 0;
           for (var i = 0; i < path.length; i++) {
@@ -175,6 +213,9 @@
           return vehicles;
       }
 
+      /**
+       * Compute the number of (unique) nodes we touch in the path.
+       */
       function pathNodes(path) {
           var score = 0;
           for (var i = 0; i < nodes.length; i++) {
@@ -185,6 +226,9 @@
       }
 
 
+      /**
+       * Compute sum of quantity picked up in the path.
+       */
       function pathQuantity(path) {
           var score = 0;
           for (var i = 0; i < nodes.length; i++) {
@@ -194,13 +238,28 @@
           return score;
       }
 
+      /**
+       * Helper function logging a warning in case path is invalid.
+       */
       function assertPath(path) {
           for (var i = 0; i < path.length; i++) {
               if (isNaN(path[i])) {
                   console.log(path);
                   console.log(i);
                   console.log(path[i]);
-                  console.log("WARNING");
+                  console.log("WARNING: Not a number");
+              }
+              if (path[i] < 0) {
+                  console.log(path);
+                  console.log(i);
+                  console.log(path[i]);
+                  console.log("WARNING: Negative node id");
+              }
+              if (path[i] >= nodes.length) {
+                  console.log(path);
+                  console.log(i);
+                  console.log(path[i]);
+                  console.log("WARNING: Path node out of bounds");
               }
           }
       }
