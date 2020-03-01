@@ -1,52 +1,75 @@
 <html>
   <head>
     <script>
+      colors = [
+          "#DB7093",
+          "#008B8B",
+          "#3CB371",
+          "#6B8E23",
+          "#0000CD",
+          "#800080",
+          "#FF8C00",
+          "#8B4513",
+      ]
+
       if(typeof(String.prototype.trim) === "undefined")
       {
-          String.prototype.trim = function() 
+          String.prototype.trim = function()
           {
               return String(this).replace(/^\s+|\s+$/g, '');
           };
       }
-
+      var XSCALE = 70;
+      var YSCALE = 40;
       var nodes = [
-          {"x" : 150,  // implicitly d == 0
-           "y" : 150,
-           "q" : 0,
-          },
-          {"x" : 120,  // node 1
-           "y" : 75,
-           "q" : 10,
-          },
-          {"x" : 20,
-           "y" : 300,
-           "q" : 10,
-          },
-          {"x" : 200,
-           "y" : 75,
-           "q" : 10,
-          },
-          {"x" : 30,
-           "y" : 70,
-           "q" : 10,
-          },
-          {"x" : 200,
-           "y" : 135,
-           "q" : 10,
-          },
-          {"x" : 90,
-           "y" : 170,
-           "q" : 10,
-          },
+{"x": 7*XSCALE, "y": 7*YSCALE, "q": 0}, // D
+{"x": 8*XSCALE, "y": 10*YSCALE, "q": 10}, // 1
+{"x": 7*XSCALE, "y": 3*YSCALE, "q": 7}, // 2
+{"x": 11*XSCALE, "y": 9*YSCALE, "q": 13}, // 3
+{"x": 11*XSCALE, "y": 4*YSCALE, "q": 19}, // 4
+{"x": 3*XSCALE, "y": 6*YSCALE, "q": 26}, // 5
+{"x": 5*XSCALE, "y": 6*YSCALE, "q": 3}, // 6
+{"x": 4*XSCALE, "y": 10*YSCALE, "q": 5}, // 7
+{"x": 2*XSCALE, "y": 9*YSCALE, "q": 9}, // 8
+{"x": 11*XSCALE, "y": 12*YSCALE, "q": 16}, // 9
+{"x": 6*XSCALE, "y": 12*YSCALE, "q": 16}, // 10
+{"x": 4*XSCALE, "y": 13*YSCALE, "q": 12}, // 11
+{"x": 10*XSCALE, "y": 7*YSCALE, "q": 19}, // 12
+{"x": 6*XSCALE, "y": 5*YSCALE, "q": 23}, // 13
+{"x": 3*XSCALE, "y": 2*YSCALE, "q": 20}, // 14
+{"x": 6*XSCALE, "y": 1*YSCALE, "q": 8}, // 15
+{"x": 2*XSCALE, "y": 4*YSCALE, "q": 19}, // 16
+{"x": 1*XSCALE, "y": 6*YSCALE, "q": 2}, // 17
+{"x": 4*XSCALE, "y": 8*YSCALE, "q": 12}, // 18
+{"x": 3*XSCALE, "y": 12*YSCALE, "q": 17}, // 19
+{"x": 9*XSCALE, "y": 13*YSCALE, "q": 9}, // 20
+{"x": 9*XSCALE, "y": 4*YSCALE, "q": 11}, // 21
+{"x": 9*XSCALE, "y": 2*YSCALE, "q": 18}, // 22
+{"x": 11*XSCALE, "y": 1*YSCALE, "q": 29}, // 23
       ];
 
-      function get_path(pstr) {
-          var path = pstr.split(',');
+      function dist(n1, n2) {
+          return Math.sqrt(Math.pow(n1["x"] - n2["x"], 2) +
+                           Math.pow(n1["y"] - n2["y"], 2));
+      }
+
+      function pathLength(path) {
+          var d = 0
+          for (var i = 1; i < path.length; i++)
+              d += dist(nodes[path[i-1]], nodes[path[i]])
+          return d;
+      }
+
+      function getPath(pstr) {
+          pstr = pstr.trim();
+          if (pstr[pstr.length-1] === ',')
+              pstr = pstr.substr(0, pstr.length-1);
+          var path = pstr.trim().split(',');
+          if (path[path.length-1] != "d")
+              path.push("d");
           for (var i = 0; i < path.length; i++) {
               path[i] = path[i].trim()
-              console.log(i);
-              console.log(path);
-              if (path[i] === "d")
+              if (path[i] == "d")
                   path[i] = 0;
               else if (!isNaN(path[i])) {
                   path[i] = parseInt(path[i])
@@ -61,23 +84,26 @@
           return path;
       }
 
-      function draw_node(ctx, x, y, r, name, q) {
-          console.log(x, y, r)
+      function drawNode(ctx, x, y, r, name, q) {
           ctx.beginPath();
           ctx.arc(x, y, r, 0, 2 * Math.PI);
+          ctx.fillStyle = "#ffffff";
+          ctx.fill();
           ctx.stroke();
           if (name === 0)
               name = "d";
+          if (name > 10)
+              x -= 10;
           ctx.font = "18px Helvetica";
-          ctx.strokeText(name, x, y); 
+          ctx.strokeText(name, x, y);
           ctx.font = "12px Helvetica";
-          ctx.strokeText(q, x, y+10); 
+          ctx.strokeText(q, x, y+10);
       }
 
       function draw(ctx) {
           var radius = 20;
           nodes.forEach((node, i) =>
-                        draw_node(ctx,
+                        drawNode(ctx,
                                   node["x"],
                                   node["y"],
                                   20,
@@ -86,7 +112,10 @@
 
       }
 
-      function draw_path(segment, ctx) {
+      function drawPath(segment, ctx, idx) {
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = colors[idx % colors.length];
+          ctx.beginPath();
           ctx.moveTo(nodes[0]["x"], nodes[0]["y"]);
           for (var i = 0; i < segment.length; i++) {
               var x = nodes[segment[i]]["x"];
@@ -94,18 +123,22 @@
               ctx.lineTo(x, y);
           }
           ctx.lineTo(nodes[0]["x"], nodes[0]["y"]);
-          ctx.stroke(); 
+          ctx.stroke();
+          ctx.strokeStyle = "#000000";
+          ctx.lineWidth = 1;
       }
 
       function updatePath(path, ctx) {
           if (path.length < 2)
               return;
           var segment = [];
+          var seg_id = 0;
           for (var i = 0; i < path.length; i++) {
               if (path[i] != 0)
                   segment.push(path[i]);
               else {
-                  draw_path(segment, ctx);
+                  drawPath(segment, ctx, seg_id);
+                  seg_id += 1;
                   segment = [];
               }
           }
@@ -120,24 +153,41 @@
           return score;
       }
 
+      function assertPath(path) {
+          for (var i = 0; i < path.length; i++) {
+              if (isNaN(path[i])) {
+                  console.log(path);
+                  console.log(i);
+                  console.log(path[i]);
+                  console.log("WARNING");
+              }
+          }
+      }
+
       function updateCanvas() {
           var canvas = document.getElementById("canvas");
           var ctx = canvas.getContext("2d");
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-          draw(ctx);
           var content = document.getElementById("pathinput").value;
-          var the_path = get_path(content);
+          var the_path = getPath(content);
+          assertPath(the_path);
           updatePath(the_path, ctx);
           var path = the_path.join(" → ");
           document.getElementById("pathoutput").innerHTML = "Your route: " + path;
-          console.log(get_path(content));
+          var length = pathLength(the_path);
+          document.getElementById("pathlength").innerHTML = "Length: " + length.toFixed(3);
+          draw(ctx);
+
       }
     </script>
   </head>
-  <body>
-    <canvas id='canvas' width="350" height="400">
+  <body onload="updateCanvas()">
+    <canvas id='canvas' width="800" height="600">
     </canvas>
     <p id="pathoutput">Your route:</p>
-    <input id="pathinput" type="text" onkeypress="updateCanvas()">
+    <input id="pathinput" type="text" onkeyup="updateCanvas()">
+    <p>Write a path like this <code>1,2,d,3,4,d,5,6,d</code></p>
+    <p id="pathlength">Length:</p>
+
   </body>
 </html>
