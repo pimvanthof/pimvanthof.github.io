@@ -51,10 +51,10 @@
       ];
 
       function dist(n1, n2) {
-          var x1 = n1["x"] / XSCALE;
-          var x2 = n2["x"] / XSCALE;
-          var y1 = n1["y"] / YSCALE;
-          var y2 = n2["y"] / YSCALE;
+          var x1 = n1["x"] / XSCALE * 5;
+          var x2 = n2["x"] / XSCALE * 5;
+          var y1 = n1["y"] / YSCALE * 5.5;
+          var y2 = n2["y"] / YSCALE * 5.5;
           return Math.floor(
               Math.sqrt(Math.pow(x1-x2, 2) +
                         Math.pow(y1-y2, 2)));
@@ -173,6 +173,16 @@
           return Math.max(0, score-1);
       }
 
+
+      function pathQuantity(path) {
+          var score = 0;
+          for (var i = 0; i < nodes.length; i++) {
+              if (path.indexOf(i) >= 0)
+                  score += nodes[i]["q"];
+          }
+          return score;
+      }
+
       function assertPath(path) {
           for (var i = 0; i < path.length; i++) {
               if (isNaN(path[i])) {
@@ -182,6 +192,20 @@
                   console.log("WARNING");
               }
           }
+      }
+
+      function maxSegment(path) {
+          var maxcost = 0;
+          var curcost = 0;
+          for (var i = 0; i < path.length; i++) {
+              if ((path[i]) == 0) {
+                  maxcost = Math.max(maxcost, curcost);
+                  curcost = 0;
+              }
+              curcost += nodes[path[i]]["q"];
+          }
+          maxcost = Math.max(maxcost, curcost);
+          return maxcost;
       }
 
       function updateCanvas() {
@@ -200,6 +224,15 @@
           document.getElementById("pathvehicles").innerHTML = "Vehicles: " + routes;
           var nodes = pathNodes(the_path);
           document.getElementById("pathnodes").innerHTML = "Nodes: " + nodes;
+          var pathquant = pathQuantity(the_path);
+          document.getElementById("pathquant").innerHTML = "Quantity: " + pathquant;
+
+          var maxseg = maxSegment(the_path);
+          statelt = document.getElementById("pathstatus");
+          if (maxseg > 50)
+              statelt.innerHTML = "Status: overload (" + pathquant + ")";
+          else
+              statelt.innerHTML = "Status: ok";
           draw(ctx);
 
       }
@@ -211,9 +244,11 @@
     <p id="pathoutput">Your route:</p>
     <input id="pathinput" type="text" onkeyup="updateCanvas()">
     <p>Write a path like this <code>1,2,d,3,4,d,5,6,d</code></p>
+    <p id="pathstatus">Status: ok</p>
     <p id="pathnodes">Nodes:</p>
     <p id="pathvehicles">Vehicles:</p>
     <p id="pathlength">Length:</p>
+    <p id="pathquant">Quantity:</p>
 
   </body>
 </html>
