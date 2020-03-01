@@ -19,7 +19,7 @@
               return String(this).replace(/^\s+|\s+$/g, '');
           };
       }
-      var XSCALE = 70;
+      var XSCALE = 60;
       var YSCALE = 40;
       var nodes = [
 {"x": 7*XSCALE, "y": 7*YSCALE, "q": 0}, // D
@@ -46,11 +46,18 @@
 {"x": 9*XSCALE, "y": 4*YSCALE, "q": 11}, // 21
 {"x": 9*XSCALE, "y": 2*YSCALE, "q": 18}, // 22
 {"x": 11*XSCALE, "y": 1*YSCALE, "q": 29}, // 23
+{"x": 13*XSCALE, "y": 7*YSCALE, "q": 3}, // 24
+{"x": 13*XSCALE, "y": 4*YSCALE, "q": 6}, // 25
       ];
 
       function dist(n1, n2) {
-          return Math.sqrt(Math.pow(n1["x"] - n2["x"], 2) +
-                           Math.pow(n1["y"] - n2["y"], 2));
+          var x1 = n1["x"] / XSCALE;
+          var x2 = n2["x"] / XSCALE;
+          var y1 = n1["y"] / YSCALE;
+          var y2 = n2["y"] / YSCALE;
+          return Math.floor(
+              Math.sqrt(Math.pow(x1-x2, 2) +
+                        Math.pow(y1-y2, 2)));
       }
 
       function pathLength(path) {
@@ -148,6 +155,15 @@
           }
       }
 
+      function pathVehicles(path) {
+          var vehicles = 0;
+          for (var i = 0; i < path.length; i++) {
+              if (path[i] == 0)
+                  vehicles += 1;
+          }
+          return vehicles;
+      }
+
       function scoreCustomers(path) {
           var score = nodes.length;
           for (var i = 0; i < nodes.length; i++) {
@@ -179,7 +195,9 @@
           var path = the_path.join(" → ");
           document.getElementById("pathoutput").innerHTML = "Your route: " + path;
           var length = pathLength(the_path);
-          document.getElementById("pathlength").innerHTML = "Length: " + length.toFixed(3);
+          document.getElementById("pathlength").innerHTML = "Length: " + length;
+          var routes = pathVehicles(the_path);
+          document.getElementById("pathvehicles").innerHTML = "Vehicles: " + routes;
           draw(ctx);
 
       }
@@ -192,6 +210,7 @@
     <input id="pathinput" type="text" onkeyup="updateCanvas()">
     <p>Write a path like this <code>1,2,d,3,4,d,5,6,d</code></p>
     <p id="pathlength">Length:</p>
+    <p id="pathvehicles">Vehicles:</p>
 
   </body>
 </html>
