@@ -164,13 +164,13 @@
           return vehicles;
       }
 
-      function scoreCustomers(path) {
-          var score = nodes.length;
+      function pathNodes(path) {
+          var score = 0;
           for (var i = 0; i < nodes.length; i++) {
-              if (path.find(i) >= 0)
-                  score -= 1;
+              if (path.indexOf(i) >= 0)
+                  score += 1;
           }
-          return score;
+          return Math.max(0, score-1);
       }
 
       function assertPath(path) {
@@ -198,6 +198,8 @@
           document.getElementById("pathlength").innerHTML = "Length: " + length;
           var routes = pathVehicles(the_path);
           document.getElementById("pathvehicles").innerHTML = "Vehicles: " + routes;
+          var nodes = pathNodes(the_path);
+          document.getElementById("pathnodes").innerHTML = "Nodes: " + nodes;
           draw(ctx);
 
       }
@@ -209,8 +211,9 @@
     <p id="pathoutput">Your route:</p>
     <input id="pathinput" type="text" onkeyup="updateCanvas()">
     <p>Write a path like this <code>1,2,d,3,4,d,5,6,d</code></p>
-    <p id="pathlength">Length:</p>
+    <p id="pathnodes">Nodes:</p>
     <p id="pathvehicles">Vehicles:</p>
+    <p id="pathlength">Length:</p>
 
   </body>
 </html>
