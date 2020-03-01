@@ -1,5 +1,6 @@
 <html>
   <head>
+    <title>Vehicle Routing Problem</title>
     <script>
       colors = [
           "#DB7093",
@@ -227,22 +228,22 @@
           assertPath(the_path);
           updatePath(the_path, ctx);
           var path = the_path.join(" → ");
-          document.getElementById("pathoutput").innerHTML = "Your route: " + path;
+          document.getElementById("pathoutput").innerHTML = "" + path;
           var length = pathLength(the_path);
-          document.getElementById("pathlength").innerHTML = "Length: " + length;
+          document.getElementById("pathlength").innerHTML = "" + length;
           var routes = pathVehicles(the_path);
-          document.getElementById("pathvehicles").innerHTML = "Vehicles: " + routes;
+          document.getElementById("pathvehicles").innerHTML = "" + routes;
           var nodes = pathNodes(the_path);
-          document.getElementById("pathnodes").innerHTML = "Nodes: " + nodes;
+          document.getElementById("pathnodes").innerHTML = "" + nodes;
           var pathquant = pathQuantity(the_path);
-          document.getElementById("pathquant").innerHTML = "Quantity: " + pathquant;
+          document.getElementById("pathquant").innerHTML = "" + pathquant;
 
           var maxseg = maxSegment(the_path);
           statelt = document.getElementById("pathstatus");
           if (maxseg > 50)
-              statelt.innerHTML = "Status: overload (" + pathquant + ")";
+              statelt.innerHTML = "overload (" + maxseg + ")";
           else
-              statelt.innerHTML = "Status: ok";
+              statelt.innerHTML = "ok";
           draw(ctx);
 
       }
@@ -251,14 +252,16 @@
   <body onload="updateCanvas()">
     <canvas id='canvas' width="800" height="600">
     </canvas>
-    <p id="pathoutput">Your route:</p>
-    <input id="pathinput" type="text" onkeyup="updateCanvas()">
-    <p>Write a path like this <code>1,2,d,3,4,d,5,6,d</code></p>
-    <p id="pathstatus">Status: ok</p>
-    <p id="pathnodes">Nodes:</p>
-    <p id="pathvehicles">Vehicles:</p>
-    <p id="pathlength">Length:</p>
-    <p id="pathquant">Quantity:</p>
-
+    <p>Path:
+      <input id="pathinput" type="text" onkeyup="updateCanvas()"> (like this: <code>1,2,d,3,4,d,5,6,d</code>)
+    </p>
+    <table>
+      <tr><td>Route:</td><td id="pathoutput"></td></tr>
+      <tr><td>Status:</td><td id="pathstatus">ok</td></tr>
+      <tr><td>Nodes:</td><td id="pathnodes"></td></tr>
+      <tr><td>Vehicles:</td><td id="pathvehicles"></td></tr>
+      <tr><td>Length:</td><td id="pathlength"></td></tr>
+      <tr><td>Quantity:</td><td id="pathquant"></td></tr>
+    </table>
   </body>
 </html>
