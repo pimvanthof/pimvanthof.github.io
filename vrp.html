@@ -240,7 +240,7 @@
           var maxseg = maxSegment(the_path);
           statelt = document.getElementById("pathstatus");
           if (maxseg > 50)
-              statelt.innerHTML = "Status: overload (" + pathquant + ")";
+              statelt.innerHTML = "Status: overload (" + maxseg + ")";
           else
               statelt.innerHTML = "Status: ok";
           draw(ctx);
