@@ -99,16 +99,26 @@
           ctx.fillStyle = "#ffffff";
           ctx.fill();
           ctx.stroke();
+          var wname = "" + name;
+          var nx = x-2;
+          var ny = y+1;
+          var qx = x-10;
+          var qy = ny + 12;
           if (name === 0)
-              name = "d";
+              wname = "d";
           if (name >= 10)
-              x -= 10;
+              nx -= 8;
           else
-              x -= 3;
+              nx -= 3;
+          if (q >= 10)
+              qx -= 4;
           ctx.font = "18px Helvetica";
-          ctx.strokeText(name, x, y);
+          ctx.fillStyle = "#000000";
+          ctx.fillText(wname, nx, ny);
           ctx.font = "12px Helvetica";
-          ctx.strokeText(q, x, y+11);
+          ctx.fillStyle = "#333333";
+          ctx.fillText("q="+q, qx, qy);
+          ctx.fillStyle = "#ffffff";
       }
 
       function draw(ctx) {
