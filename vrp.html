@@ -291,7 +291,7 @@
        */
       function maxSegment(path) {
           var maxseg = [0,0];
-          var cursegstart = 0;
+          var cursegstart = -1;
           var maxcost = 0;
           var curcost = 0;
           for (var i = 0; i < path.length; i++) {
