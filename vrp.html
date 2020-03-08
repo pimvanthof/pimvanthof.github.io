@@ -137,7 +137,10 @@
        */
       function drawNode(ctx, x, y, r, name, q) {
           ctx.beginPath();
-          ctx.arc(x, y, r, 0, 2 * Math.PI);
+          if (name === 0)
+              ctx.rect(x-(1.5*r), y-(1.5*r), 3*r, 3*r);
+          else
+              ctx.arc(x, y, r, 0, 2 * Math.PI);
           ctx.fillStyle = "#ffffff";
           ctx.fill();
           ctx.stroke();
@@ -147,19 +150,22 @@
           var qx = x-10;
           var qy = ny + 12;
           if (name === 0)
-              wname = "d";
+              wname = "D";
           if (name >= 10)
               nx -= 8;
           else
               nx -= 3;
           if (q >= 10)
               qx -= 4;
+          if (name === 0)
+              ny += 5;
           ctx.font = "18px Helvetica";
           ctx.fillStyle = "#000000";
           ctx.fillText(wname, nx, ny);
           ctx.font = "12px Helvetica";
           ctx.fillStyle = "#333333";
-          ctx.fillText("q="+q, qx, qy);
+          if (name != 0)  // skip q for Depot
+              ctx.fillText("q="+q, qx, qy);
           ctx.fillStyle = "#ffffff";
       }
 
