@@ -13,6 +13,22 @@
           "#8B4513",
       ]
 
+      // Populate arrays with a .uniq method similar to uniq(1)
+      if(typeof(Array.prototype.uniq) === "undefined")
+      {
+          Array.prototype.unique = function()
+          {
+              if (this.length == 0)
+                  return [];
+              var newarr = [this[0]];
+              for (var i = 1; i < this.length; i++) {
+                  if (this[i] != this[i-1])
+                      newarr.push(this[i]);
+              }
+              return newarr;
+          };
+      }
+
       if(typeof(String.prototype.trim) === "undefined")
       {
           String.prototype.trim = function()
@@ -111,7 +127,7 @@
               else
                   return [];
           }
-          return path;
+          return path.unique();
       }
 
 
