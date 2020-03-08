@@ -13,6 +13,22 @@
           "#8B4513",
       ]
 
+      // Populate arrays with a .uniq method similar to uniq(1)
+      if(typeof(Array.prototype.uniq) === "undefined")
+      {
+          Array.prototype.unique = function()
+          {
+              if (this.length == 0)
+                  return [];
+              var newarr = [this[0]];
+              for (var i = 1; i < this.length; i++) {
+                  if (this[i] != this[i-1])
+                      newarr.push(this[i]);
+              }
+              return newarr;
+          };
+      }
+
       if(typeof(String.prototype.trim) === "undefined")
       {
           String.prototype.trim = function()
@@ -104,14 +120,14 @@
               else if (!isNaN(path[i])) {
                   path[i] = parseInt(path[i])
                   if (path[i] <= 0)
-                      return [];
+                      path[i] = 0;
                   if (path[i] >= nodes.length)
-                      return [];
+                      path[i] = 0;
               }
               else
                   return [];
           }
-          return path;
+          return path.unique();
       }
 
 
@@ -264,18 +280,30 @@
           }
       }
 
+      /**
+       *  Returns the segment with highest total cost and its cost
+       */
       function maxSegment(path) {
+          var maxseg = [0,0];
+          var cursegstart = 0;
           var maxcost = 0;
           var curcost = 0;
           for (var i = 0; i < path.length; i++) {
               if ((path[i]) == 0) {
-                  maxcost = Math.max(maxcost, curcost);
+                  if (curcost > maxcost) {
+                      maxcost = Math.max(maxcost, curcost);
+                      maxseg = [cursegstart, i];
+                  }
+                  cursegstart = i;
                   curcost = 0;
               }
               curcost += nodes[path[i]]["q"];
           }
-          maxcost = Math.max(maxcost, curcost);
-          return maxcost;
+          if (curcost > maxcost) {
+              maxcost = Math.max(maxcost, curcost);
+              maxseg = [cursegstart, path.length];
+          }
+          return [maxseg, maxcost];
       }
 
       function updateCanvas() {
@@ -286,7 +314,7 @@
           var the_path = getPath(content);
           assertPath(the_path);
           updatePath(the_path, ctx);
-          var path = the_path.join(" → ");
+          var path = the_path.map(function(elt) {return elt == 0 ? "d" : elt }).join(", ");
           document.getElementById("pathoutput").innerHTML = "" + path;
           var length = pathLength(the_path);
           document.getElementById("pathlength").innerHTML = "" + length;
@@ -298,9 +326,13 @@
           document.getElementById("pathquant").innerHTML = "" + pathquant;
 
           var maxseg = maxSegment(the_path);
-          statelt = document.getElementById("pathstatus");
-          if (maxseg > 50)
-              statelt.innerHTML = "overload (" + maxseg + ")";
+          var maxsegpath = maxseg[0];
+          var maxsegcost = maxseg[1];
+          var statelt = document.getElementById("pathstatus");
+          if (maxsegcost > 50) {
+              var themaxpath = the_path.slice(maxsegpath[0]+1, maxsegpath[1]);
+              statelt.innerHTML = "overload on path [" + themaxpath + "], cost=" + maxsegcost + ".";
+          }
           else
               statelt.innerHTML = "ok";
           draw(ctx);
