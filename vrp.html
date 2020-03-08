@@ -104,9 +104,9 @@
               else if (!isNaN(path[i])) {
                   path[i] = parseInt(path[i])
                   if (path[i] <= 0)
-                      return [];
+                      path[i] = 0;
                   if (path[i] >= nodes.length)
-                      return [];
+                      path[i] = 0;
               }
               else
                   return [];
