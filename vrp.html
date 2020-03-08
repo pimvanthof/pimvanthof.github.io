@@ -138,11 +138,14 @@
        */
       function drawNode(ctx, x, y, r, name, q) {
           ctx.beginPath();
-          if (name === 0)
+          if (name === 0) {
               ctx.rect(x-(1.5*r), y-(1.5*r), 3*r, 3*r);
-          else
+              ctx.fillStyle = "#dddddd";
+          }
+          else {
               ctx.arc(x, y, r, 0, 2 * Math.PI);
-          ctx.fillStyle = "#ffffff";
+              ctx.fillStyle = "#ffffff";
+          }
           ctx.fill();
           ctx.stroke();
           var wname = "" + name;
