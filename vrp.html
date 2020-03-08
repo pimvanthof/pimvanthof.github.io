@@ -115,7 +115,7 @@
               path.push("d");
           for (var i = 0; i < path.length; i++) {
               path[i] = path[i].trim()
-              if (path[i] == "d")
+              if (path[i] == "d" || path[i] == "")
                   path[i] = 0;
               else if (!isNaN(path[i])) {
                   path[i] = parseInt(path[i])
