@@ -320,7 +320,7 @@
           var the_path = getPath(content);
           assertPath(the_path);
           updatePath(the_path, ctx);
-          var path = the_path.map(function(elt) {return elt == 0 ? "d" : elt }).join(", ");
+          var path = the_path.map(function(elt) {return elt == 0 ? "D" : elt }).join(", ");
           document.getElementById("pathoutput").innerHTML = "" + path;
           var length = pathLength(the_path);
           document.getElementById("pathlength").innerHTML = "" + length;
@@ -349,11 +349,11 @@
   <body onload="updateCanvas()">
     <canvas id='canvas' width="800" height="600">
     </canvas>
-    <p>Path:
-      <input id="pathinput" type="text" onkeyup="updateCanvas()"> (like this: <code>1,2,d,3,4,d,5,6,d</code>)
+    <p>Trip:
+      <input id="pathinput" type="text" onkeyup="updateCanvas()"> (like this: <code>1,2,D,3,4,D,5,6,D</code>)
     </p>
     <table>
-      <tr><td>Route:</td><td id="pathoutput"></td></tr>
+      <tr><td>Solution:</td><td id="pathoutput"></td></tr>
       <tr><td>Status:</td><td id="pathstatus">ok</td></tr>
       <tr><td>Nodes:</td><td id="pathnodes"></td></tr>
       <tr><td>Vehicles:</td><td id="pathvehicles"></td></tr>
