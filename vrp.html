@@ -111,8 +111,9 @@
           if (pstr[pstr.length-1] === ',')
               pstr = pstr.substr(0, pstr.length-1);
           var path = pstr.trim().split(',');
-          if (path[path.length-1] != "D")
-              path.push("D");
+          path.unshift("D");
+          path.push("D");
+          path = path.uniq();
           for (var i = 0; i < path.length; i++) {
               path[i] = path[i].trim()
               if (path[i] == "D" || path[i] == "")
@@ -232,7 +233,7 @@
               if (path[i] == 0)
                   vehicles += 1;
           }
-          return vehicles;
+          return Math.max(0, vehicles-1);
       }
 
       /**
