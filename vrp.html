@@ -16,7 +16,7 @@
       // Populate arrays with a .uniq method similar to uniq(1)
       if(typeof(Array.prototype.uniq) === "undefined")
       {
-          Array.prototype.unique = function()
+          Array.prototype.uniq = function()
           {
               if (this.length == 0)
                   return [];
@@ -105,17 +105,18 @@
        *
        */
       function getPath(pstr) {
-          pstr = pstr.trim();
+          pstr = pstr.toUpperCase().trim();
           if (pstr == "")
               return [];
           if (pstr[pstr.length-1] === ',')
               pstr = pstr.substr(0, pstr.length-1);
           var path = pstr.trim().split(',');
-          if (path[path.length-1] != "d")
-              path.push("d");
+          path.unshift("D");
+          path.push("D");
+          path = path.uniq();
           for (var i = 0; i < path.length; i++) {
               path[i] = path[i].trim()
-              if (path[i] == "d" || path[i] == "")
+              if (path[i] == "D" || path[i] == "")
                   path[i] = 0;
               else if (!isNaN(path[i])) {
                   path[i] = parseInt(path[i])
@@ -127,7 +128,7 @@
               else
                   return [];
           }
-          return path.unique();
+          return path.uniq();
       }
 
 
@@ -232,7 +233,7 @@
               if (path[i] == 0)
                   vehicles += 1;
           }
-          return vehicles;
+          return Math.max(0, vehicles-1);
       }
 
       /**
@@ -291,7 +292,7 @@
        */
       function maxSegment(path) {
           var maxseg = [0,0];
-          var cursegstart = 0;
+          var cursegstart = -1;
           var maxcost = 0;
           var curcost = 0;
           for (var i = 0; i < path.length; i++) {
@@ -320,7 +321,7 @@
           var the_path = getPath(content);
           assertPath(the_path);
           updatePath(the_path, ctx);
-          var path = the_path.map(function(elt) {return elt == 0 ? "d" : elt }).join(", ");
+          var path = the_path.map(function(elt) {return elt == 0 ? "D" : elt }).join(", ");
           document.getElementById("pathoutput").innerHTML = "" + path;
           var length = pathLength(the_path);
           document.getElementById("pathlength").innerHTML = "" + length;
@@ -349,11 +350,11 @@
   <body onload="updateCanvas()">
     <canvas id='canvas' width="800" height="600">
     </canvas>
-    <p>Path:
-      <input id="pathinput" type="text" onkeyup="updateCanvas()"> (like this: <code>1,2,d,3,4,d,5,6,d</code>)
+    <p>Trip:
+      <input id="pathinput" type="text" onkeyup="updateCanvas()"> (like this: <code>1,2,D,3,4,D,5,6,D</code>)
     </p>
     <table>
-      <tr><td>Route:</td><td id="pathoutput"></td></tr>
+      <tr><td>Solution:</td><td id="pathoutput"></td></tr>
       <tr><td>Status:</td><td id="pathstatus">ok</td></tr>
       <tr><td>Nodes:</td><td id="pathnodes"></td></tr>
       <tr><td>Vehicles:</td><td id="pathvehicles"></td></tr>
