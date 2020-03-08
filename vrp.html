@@ -286,7 +286,7 @@
           var the_path = getPath(content);
           assertPath(the_path);
           updatePath(the_path, ctx);
-          var path = the_path.join(" → ");
+          var path = the_path.map(function(elt) {return elt == 0 ? "d" : elt }).join(", ");
           document.getElementById("pathoutput").innerHTML = "" + path;
           var length = pathLength(the_path);
           document.getElementById("pathlength").innerHTML = "" + length;
